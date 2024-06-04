@@ -1,0 +1,37 @@
+.current {
+  background-color: black;
+  border-radius: 5px;
+  width: 310px;
+
+  &__topLine {
+    display: flex;
+    background-color: grey;
+    justify-content: space-around;
+  }
+
+  &__lastUpdated {
+  }
+
+  &__location {
+  }
+
+  &__isDay {
+  }
+
+  &__tempConditions {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  &__temp {
+  }
+
+  &__condition {
+  }
+
+  &__wind {
+    display: flex;
+    justify-content: space-around;
+  }
+}

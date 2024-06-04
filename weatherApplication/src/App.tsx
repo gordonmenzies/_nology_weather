@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import WeatherWidgit from "./Components/WeatherWidgit/WeatherWidgit";
 import "./App.css";
+import ForecastResponse from "./types/ForecastResponse";
 
 type LocationObject = {
   latitude: number;
@@ -8,7 +9,7 @@ type LocationObject = {
 };
 
 const App = () => {
-  const [weatherData, setWeatherData] = useState<Object | null>(null);
+  const [weatherData, setWeatherData] = useState<ForecastResponse>();
   const [locationData, setLocationData] = useState<LocationObject>();
 
   let displayedData: Object;
@@ -71,11 +72,7 @@ const App = () => {
     }
   }, [weatherData]);
 
-  return (
-    <>
-      <WeatherWidgit weatherData={weatherData} />
-    </>
-  );
+  return <>{weatherData != null ? <WeatherWidgit weatherData={weatherData} /> : <p> no weather data available</p>}</>;
 };
 
 export default App;
