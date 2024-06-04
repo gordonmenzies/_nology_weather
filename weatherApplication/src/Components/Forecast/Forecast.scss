@@ -1,4 +1,10 @@
 .forecast {
+  &__selection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   &__table {
     display: flex;
     justify-content: space-between;
