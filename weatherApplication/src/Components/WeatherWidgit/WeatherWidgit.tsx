@@ -2,17 +2,24 @@ import "./WeatherWidgit.scss";
 import Forecast from "../Forecast/Forecast";
 import Condition from "../Condition/Condition";
 import ForecastResponse from "../../types/ForecastResponse";
+import { useState } from "react";
 
 type WeatherWidgitProps = {
   weatherData: ForecastResponse;
 };
 
 const WeatherWidgit = ({ weatherData }: WeatherWidgitProps) => {
-  function getDayOfWeek(dateString: string): string {
+  const [showFeelsLike, setShowFeelsLike] = useState(false);
+
+  const reveal = () => {
+    showFeelsLike == false ? setShowFeelsLike(true) : setShowFeelsLike(false);
+  };
+
+  const getDayOfWeek = (dateString: string): string => {
     const date = new Date(dateString);
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     return daysOfWeek[date.getUTCDay()];
-  }
+  };
 
   return (
     <div className="current">
@@ -24,12 +31,37 @@ const WeatherWidgit = ({ weatherData }: WeatherWidgitProps) => {
         <p>{getDayOfWeek(weatherData.current.last_updated.split(" ", 1)[0])}</p>
       </div>
       <div className="current__tempConditions">
-        <p className="current__temp">{weatherData.current.temp_c} °C</p>
-        <Condition code={weatherData.current.condition.code} text={weatherData.current.condition.text} icon={weatherData.current.condition.icon} />
+        <div
+          className="current__displayContainer"
+          onClick={() => {
+            reveal();
+          }}
+        >
+          {showFeelsLike ? (
+            <div>
+              <p className="current__title">feels like</p>
+              <p className="current__data">{weatherData.current.feelslike_c} °C</p>
+            </div>
+          ) : (
+            <div>
+              <p className="current__title">temperature</p>
+              <p className="current__data">{weatherData.current.temp_c} °C</p>
+            </div>
+          )}
+        </div>
+        <div className="current__displayContainer">
+          <Condition code={weatherData.current.condition.code} text={weatherData.current.condition.text} icon={weatherData.current.condition.icon} />
+        </div>
       </div>
       <div className="current__wind">
-        <p className="current__windDirection">{weatherData.current.wind_dir}</p>
-        <p className="current__speed">{weatherData.current.wind_kph} kph</p>
+        <div className="current__displayContainer">
+          <p className="current__title">wind direction</p>
+          <p className="current__data">{weatherData.current.wind_dir}</p>
+        </div>
+        <div className="current__displayContainer">
+          <p className="current__title">wind speed</p>
+          <p className="current__speed">{weatherData.current.wind_kph} kph</p>
+        </div>
       </div>
       {weatherData != null ? <Forecast forecastData={weatherData.forecast} getDayOfWeek={getDayOfWeek} /> : <p> no forecast data</p>}
     </div>
