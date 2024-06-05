@@ -44,7 +44,7 @@ const WeatherWidgit = ({ weatherData }: WeatherWidgitProps) => {
             </div>
           ) : (
             <div>
-              <p className="current__title">temperature</p>
+              <p className="current__title">temp</p>
               <p className="current__data">{weatherData.current.temp_c} °C</p>
             </div>
           )}
@@ -55,11 +55,11 @@ const WeatherWidgit = ({ weatherData }: WeatherWidgitProps) => {
       </div>
       <div className="current__wind">
         <div className="current__displayContainer">
-          <p className="current__title">wind direction</p>
+          <p className="current__title">direction</p>
           <p className="current__data">{weatherData.current.wind_dir}</p>
         </div>
         <div className="current__displayContainer">
-          <p className="current__title">wind speed</p>
+          <p className="current__title">speed</p>
           <p className="current__speed">{weatherData.current.wind_kph} kph</p>
         </div>
       </div>
