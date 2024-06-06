@@ -1,4 +1,4 @@
-type ForecastData = {
+type ForecastType = {
   forecastday: Forecastday[];
 };
 
@@ -87,4 +87,4 @@ type Condition = {
   code: number;
 };
 
-export default ForecastData;
+export default ForecastType;

@@ -1,10 +1,10 @@
 import "./Forecast.scss";
-import ForecastData from "../../types/ForecastData";
+import ForecastType from "../../types/ForecastType";
 import Condition from "../Condition/Condition";
 import { useState } from "react";
 
 type ForecastProps = {
-  forecastData: ForecastData;
+  forecastData: ForecastType;
   getDayOfWeek: (date: string) => string;
 };
 
@@ -12,7 +12,7 @@ const Forecast = ({ getDayOfWeek, forecastData }: ForecastProps) => {
   const [displayValue, setDisplayValue] = useState<number>(0);
 
   const increment = () => {
-    if (displayValue == 4) {
+    if (displayValue == 3) {
       setDisplayValue(0);
     } else {
       setDisplayValue(displayValue + 1);
@@ -21,7 +21,7 @@ const Forecast = ({ getDayOfWeek, forecastData }: ForecastProps) => {
 
   const decrement = () => {
     if (displayValue == 0) {
-      setDisplayValue(4);
+      setDisplayValue(3);
     } else {
       setDisplayValue(displayValue - 1);
     }
@@ -34,10 +34,8 @@ const Forecast = ({ getDayOfWeek, forecastData }: ForecastProps) => {
       case 1:
         return "max temp";
       case 2:
-        return "min temp";
-      case 3:
         return "chance of rain";
-      case 4:
+      case 3:
         return "condition";
     }
   };
@@ -99,31 +97,6 @@ const Forecast = ({ getDayOfWeek, forecastData }: ForecastProps) => {
           <div className="forecast__table">
             <div className="forecast__block">
               <div className="forecast__day">{getDayOfWeek(forecastData.forecastday[0].date).substring(0, 3)}</div>
-              <div className="forecast__value">{forecastData.forecastday[0].day.minTemp_c} °C</div>
-            </div>
-            <div className="forecast__block">
-              <div className="forecast__day">{getDayOfWeek(forecastData.forecastday[1].date).substring(0, 3)}</div>
-              <div className="forecast__value">{forecastData.forecastday[1].day.minTemp_c} °C</div>
-            </div>
-            <div className="forecast__block">
-              <div className="forecast__day">{getDayOfWeek(forecastData.forecastday[2].date).substring(0, 3)}</div>
-              <div className="forecast__value">{forecastData.forecastday[2].day.minTemp_c} °C</div>
-            </div>
-            <div className="forecast__block">
-              <div className="forecast__day">{getDayOfWeek(forecastData.forecastday[3].date).substring(0, 3)}</div>
-              <div className="forecast__value">{forecastData.forecastday[3].day.minTemp_c} °C</div>
-            </div>
-            <div className="forecast__block">
-              <div className="forecast__day">{getDayOfWeek(forecastData.forecastday[4].date).substring(0, 3)}</div>
-              <div className="forecast__value">{forecastData.forecastday[4].day.minTemp_c} °C</div>
-            </div>
-          </div>
-        );
-      case 3:
-        return (
-          <div className="forecast__table">
-            <div className="forecast__block">
-              <div className="forecast__day">{getDayOfWeek(forecastData.forecastday[0].date).substring(0, 3)}</div>
               <div className="forecast__value">{forecastData.forecastday[0].day.daily_chance_of_rain} %</div>
             </div>
             <div className="forecast__block">
@@ -144,7 +117,7 @@ const Forecast = ({ getDayOfWeek, forecastData }: ForecastProps) => {
             </div>
           </div>
         );
-      case 4:
+      case 3:
         return (
           <div className="forecast__table">
             <div className="forecast__block">
@@ -185,30 +158,3 @@ const Forecast = ({ getDayOfWeek, forecastData }: ForecastProps) => {
 };
 
 export default Forecast;
-
-{
-  /* <div className="forecast__table">
-<div className="forecast__block">
-  <div className="forecast__day">{getDayOfWeek(forecastData.forecastday[0].date).substring(0, 3)}</div>
-  <div className="forecast__value">{forecastData.forecastday[0].day.avgtemp_c} °C</div>
-</div>
-<div className="forecast__block">
-  <div className="forecast__day">{getDayOfWeek(forecastData.forecastday[1].date).substring(0, 3)}</div>
-  <div className="forecast__value">{forecastData.forecastday[1].day.avgtemp_c} °C</div>
-</div>
-<div className="forecast__block">
-  <div className="forecast__day">{getDayOfWeek(forecastData.forecastday[2].date).substring(0, 3)}</div>
-  <div className="forecast__value">{forecastData.forecastday[2].day.avgtemp_c} °C</div>
-</div>
-<div className="forecast__block">
-  <div className="forecast__day">{getDayOfWeek(forecastData.forecastday[3].date).substring(0, 3)}</div>
-  <div className="forecast__value">{forecastData.forecastday[3].day.avgtemp_c} °C</div>
-</div>
-<div className="forecast__block">
-  <div className="forecast__day">{getDayOfWeek(forecastData.forecastday[4].date).substring(0, 3)}</div>
-  <div className="forecast__value">{forecastData.forecastday[4].day.avgtemp_c} °C</div>
-</div>
-</div>
-);
-} */
-}

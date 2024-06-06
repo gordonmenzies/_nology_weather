@@ -6,7 +6,7 @@ type ConditionProps = {
   code: number;
 };
 
-const Condition = ({ code, icon, text }: ConditionProps) => {
+const Condition = ({ icon, text }: ConditionProps) => {
   return (
     <div>
       <img src={icon} />

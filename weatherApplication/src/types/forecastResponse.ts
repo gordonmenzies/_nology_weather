@@ -47,8 +47,8 @@ type Location = {
   localtime: string;
 };
 
-type Forecast = {
-  forcastday: Forecastday[];
+type ForecastType = {
+  forecastday: Forecastday[];
 };
 
 type Forecastday = {
@@ -133,7 +133,7 @@ type Day = {
 type ForecastResponse = {
   location: Location;
   current: Current;
-  forecast: Forecast;
+  forecast: ForecastType;
 };
 
 export default ForecastResponse;

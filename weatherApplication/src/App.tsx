@@ -10,7 +10,6 @@ type LocationObject = {
 
 const App = () => {
   const [weatherData, setWeatherData] = useState<ForecastResponse>();
-  const [locationData, setLocationData] = useState<LocationObject>();
 
   let displayedData: Object;
 
@@ -21,7 +20,6 @@ const App = () => {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         };
-        setLocationData(newPosition);
         resolve(newPosition);
       };
 
@@ -36,7 +34,7 @@ const App = () => {
 
   const accessForecast = async (locationData: LocationObject): Promise<Object> => {
     let url = "http://api.weatherapi.com/v1/forecast.json?";
-    let apiKey = "key=1682162e7a4c40c6afc114014240306";
+    let apiKey = `key=${import.meta.env.VITE_API_KEY}`;
     let q = `&q=${locationData.latitude},${locationData.longitude}`;
     let days = "&days=5";
 
