@@ -1,5 +1,3 @@
-import "./Condition.scss";
-
 type ConditionProps = {
   text: string;
   icon: string;

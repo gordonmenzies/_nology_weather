@@ -13,8 +13,6 @@ const WeatherWidgit = ({ weatherData }: WeatherWidgitProps) => {
   const [showFeelsLike, setShowFeelsLike] = useState(false);
   const [showWindSpeed, setShowWindSpeed] = useState(false);
 
-  console.log(weatherData.forecast);
-
   function formatDate(dateString: string): string {
     const date = new Date(dateString);
     const day = date.getDate();
@@ -38,6 +36,16 @@ const WeatherWidgit = ({ weatherData }: WeatherWidgitProps) => {
     return `${day}${daySuffix(day)} ${month} ${year}`;
   }
 
+  const greeting = (): string => {
+    const currentHour = new Date().getHours();
+
+    if (currentHour < 12) {
+      return "Good morning";
+    } else {
+      return "Good afternoon";
+    }
+  };
+
   const getDayOfWeek = (dateString: string): string => {
     const date = new Date(dateString);
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -60,7 +68,10 @@ const WeatherWidgit = ({ weatherData }: WeatherWidgitProps) => {
         <p className="current__location">{weatherData.location.name}</p>
       </div>
       <div className="current__isDay">
-        <p>{getDayOfWeek(weatherData.current.last_updated.split(" ", 1)[0])}</p>
+        <p></p>
+        <p>
+          {greeting()} it's {getDayOfWeek(weatherData.current.last_updated.split(" ", 1)[0])}
+        </p>
       </div>
       <div className="current__tempConditions">
         <div className="current__displayContainer" onMouseEnter={(e) => reveal(e.currentTarget as HTMLDivElement)} onMouseLeave={(e) => reveal(e.currentTarget as HTMLDivElement)}>

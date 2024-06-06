@@ -58,7 +58,6 @@ const App = () => {
 
   useEffect(() => {
     getData();
-    console.log("reached");
   }, []);
 
   useEffect(() => {
@@ -66,7 +65,6 @@ const App = () => {
       displayedData = weatherData;
       console.log(displayedData);
     } else {
-      console.error("no weather data to display");
     }
   }, [weatherData]);
 
