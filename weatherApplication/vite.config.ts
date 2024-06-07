@@ -7,6 +7,6 @@ export default defineConfig({
   plugins: [react()],
   base: "./",
   define: {
-    "process.envVITE_API_KEY": JSON.stringify(process.env.VITE_API_KEY),
+    "process.envVITE_Weather_API_KEY": JSON.stringify(process.env.VITE_API_KEY),
   },
 });
