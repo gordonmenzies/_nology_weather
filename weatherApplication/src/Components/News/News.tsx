@@ -1,19 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NewsResponse from "../../types/NewsResponse";
 import "./News.scss";
 
-type NewsProps = {
-  newsData: NewsResponse | undefined;
-  submitInput: (input: HTMLInputElement) => string;
-};
-
-const News = ({ newsData, submitInput }: NewsProps) => {
+const News = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [newsData, setNewsData] = useState<NewsResponse | undefined>();
+
+  const accessNews = async (): Promise<Object> => {
+    let url = "https://newsapi.org/v2/everything?q=bitcoin&";
+    let key = `apiKey=${import.meta.env.VITE_NEWS_API_KEY}`;
+
+    const response = await fetch(url + key);
+    const responseData = await response.json();
+    setNewsData(responseData);
+    console.log(responseData);
+    return responseData;
+  };
+
+  const submitInput = (input: string) => {
+    return input;
+  };
+
+  useEffect(() => {
+    accessNews();
+  }, []);
+
   return (
     <div className="newsSection">
       <div>
         <input type="text" defaultValue="search" onChange={(e) => setSearchTerm(e.target.value)}></input>
-        <button onClick={() => submitInput}>search</button>
+        <button onClick={() => submitInput(searchTerm)}>search</button>
       </div>
       <div className="newsList">
         {newsData
