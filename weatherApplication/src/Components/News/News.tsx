@@ -3,22 +3,10 @@ import NewsResponse from "../../types/NewsResponse";
 import "./News.scss";
 
 const News = () => {
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState<string>("bitcoin");
   const [newsData, setNewsData] = useState<NewsResponse | undefined>();
 
   const accessNews = async (): Promise<Object> => {
-    let url = "https://newsapi.org/v2/everything?q=bitcoin&";
-    let key = `apiKey=${import.meta.env.VITE_NEWS_API_KEY}`;
-
-    const response = await fetch(url + key);
-    console.log(url + key);
-    const responseData = await response.json();
-    setNewsData(responseData);
-    console.log(responseData);
-    return responseData;
-  };
-
-  const submitInput = async (searchTerm: string) => {
     let url = "https://newsapi.org/v2/everything?";
     let key = `apiKey=${import.meta.env.VITE_NEWS_API_KEY}`;
     let q = `q=${searchTerm.toLowerCase()}&`;
@@ -39,7 +27,7 @@ const News = () => {
     <div className="newsSection">
       <div>
         <input type="text" defaultValue="search" onChange={(e) => setSearchTerm(e.target.value)}></input>
-        <button onClick={() => submitInput(searchTerm)}>search</button>
+        <button onClick={() => accessNews()}>search</button>
       </div>
       <div className="newsList">
         {newsData
