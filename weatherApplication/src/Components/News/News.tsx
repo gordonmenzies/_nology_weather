@@ -11,14 +11,24 @@ const News = () => {
     let key = `apiKey=${import.meta.env.VITE_NEWS_API_KEY}`;
 
     const response = await fetch(url + key);
+    console.log(url + key);
     const responseData = await response.json();
     setNewsData(responseData);
     console.log(responseData);
     return responseData;
   };
 
-  const submitInput = (input: string) => {
-    return input;
+  const submitInput = async (searchTerm: string) => {
+    let url = "https://newsapi.org/v2/everything?";
+    let key = `apiKey=${import.meta.env.VITE_NEWS_API_KEY}`;
+    let q = `q=${searchTerm.toLowerCase()}&`;
+
+    console.log(url + q + key);
+    const response = await fetch(url + q + key);
+    const responseData = await response.json();
+    setNewsData(responseData);
+    console.log("response data", responseData);
+    return responseData;
   };
 
   useEffect(() => {
@@ -35,11 +45,13 @@ const News = () => {
         {newsData
           ? newsData.articles.slice(0, 4).map((article) => {
               return (
-                <div className="newsItem">
-                  <h1>{article.title}</h1>
-                  <h2>{article.source.name}</h2>
-                  <img src={article.urlToImage} />
-                </div>
+                <a href={article.url}>
+                  <div className="newsItem">
+                    <h1>{article.title}</h1>
+                    <h2>{article.source.name}</h2>
+                    <img src={article.urlToImage} />
+                  </div>
+                </a>
               );
             })
           : " no news data"}

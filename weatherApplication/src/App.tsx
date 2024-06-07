@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import WeatherWidgit from "./Components/WeatherWidgit/WeatherWidgit";
 import News from "./Components/News/News";
 import "./App.css";
-import ForecastResponse from "./types/ForecastResponse";
-import NewsResponse from "./types/NewsResponse";
 import LocationObject from "./types/LocationObject";
 
 const App = () => {
@@ -14,15 +12,12 @@ const App = () => {
 
   const [locationData, setLocationData] = useState<LocationObject>(defaultLocation);
 
-  let displayLocation: LocationObject = defaultLocation;
-
   const accessLocation = () => {
     const success = (position: GeolocationPosition) => {
       const newPosition: LocationObject = {
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
       };
-      console.log("new position", newPosition);
       setLocationData(newPosition);
     };
 
@@ -32,17 +27,9 @@ const App = () => {
     navigator.geolocation.getCurrentPosition(success, error);
   };
 
-  const submitInput = (input: string) => {
-    return input;
-  };
-
   useEffect(() => {
     accessLocation();
   }, []);
-
-  // useEffect(() => {
-  //   console.log("display location", displayLocation);
-  // }, [locationData]);
 
   return (
     <div>
