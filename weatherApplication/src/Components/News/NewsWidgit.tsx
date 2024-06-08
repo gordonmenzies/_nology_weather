@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import NewsResponse from "../../types/NewsResponse";
-import "./News.scss";
+import "./NewsWidgit.scss";
 
 const News = () => {
   const [searchTerm, setSearchTerm] = useState<string>("bitcoin");
@@ -35,9 +35,13 @@ const News = () => {
               return (
                 <a href={article.url}>
                   <div className="newsItem">
-                    <h1>{article.title}</h1>
-                    <h2>{article.source.name}</h2>
-                    <img src={article.urlToImage} />
+                    <div className="newsItem__text">
+                      <h1>{article.title}</h1>
+                      <h2>{article.source.name}</h2>
+                    </div>
+                    <div className="newsItem__image">
+                      <img src={article.urlToImage} />
+                    </div>
                   </div>
                 </a>
               );

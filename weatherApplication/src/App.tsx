@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import WeatherWidgit from "./Components/WeatherWidgit/WeatherWidgit";
-import News from "./Components/News/News";
+import News from "./Components/News/NewsWidgit";
 import "./App.css";
 import LocationObject from "./types/LocationObject";
 
@@ -31,12 +31,7 @@ const App = () => {
     accessLocation();
   }, []);
 
-  return (
-    <div>
-      {locationData ? <WeatherWidgit locationData={locationData} /> : <p> no weather data available</p>}
-      <News />
-    </div>
-  );
+  return <div>{locationData ? <WeatherWidgit locationData={locationData} /> : <p> no weather data available</p>}</div>;
 };
 
 export default App;

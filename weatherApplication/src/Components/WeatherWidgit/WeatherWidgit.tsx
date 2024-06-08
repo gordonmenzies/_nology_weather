@@ -1,9 +1,10 @@
 import "./WeatherWidgit.scss";
-import Forecast from "../Forecast/Forecast";
 import Condition from "../Condition/Condition";
+import NewsWidgit from "../News/NewsWidgit";
 import ForecastResponse from "../../types/ForecastResponse";
 import LocationObject from "../../types/LocationObject";
 import { useState, useEffect } from "react";
+import Forecast from "../Forecast/Forecast";
 
 type WeatherWidgitProps = {
   locationData: LocationObject;
@@ -13,6 +14,15 @@ const WeatherWidgit = ({ locationData }: WeatherWidgitProps) => {
   const [weatherData, setWeatherData] = useState<ForecastResponse>();
   const [showFeelsLike, setShowFeelsLike] = useState(false);
   const [showWindSpeed, setShowWindSpeed] = useState(false);
+  const [displayValue, setDisplayValue] = useState<boolean>(false);
+
+  const change = () => {
+    if (displayValue == true) {
+      setDisplayValue(false);
+    } else {
+      setDisplayValue(true);
+    }
+  };
 
   const accessForecast = async (locationData: LocationObject) => {
     let url = "http://api.weatherapi.com/v1/forecast.json?";
@@ -84,53 +94,62 @@ const WeatherWidgit = ({ locationData }: WeatherWidgitProps) => {
           <p className="current__location">{weatherData.location.name}</p>
         </div>
         <div className="current__isDay">
-          <p></p>
           <p>
             {greeting()} it's {getDayOfWeek(weatherData.current.last_updated.split(" ", 1)[0])}
           </p>
         </div>
-        <div className="current__tempConditions">
-          <div className="current__displayContainer" onMouseEnter={(e) => reveal(e.currentTarget as HTMLDivElement)} onMouseLeave={(e) => reveal(e.currentTarget as HTMLDivElement)}>
-            {showFeelsLike ? (
-              <div>
-                <p className="current__title">feels like</p>
-                <p className="current__data">{weatherData.current.feelslike_c} °C</p>
+        <div className="current__variable">
+          <button onClick={() => change()}>Left</button>
+          {displayValue == true ? (
+            <NewsWidgit />
+          ) : (
+            <div className="current__weather">
+              <div className="current__tempConditions">
+                <div className="current__displayContainer" onMouseEnter={(e) => reveal(e.currentTarget as HTMLDivElement)} onMouseLeave={(e) => reveal(e.currentTarget as HTMLDivElement)}>
+                  {showFeelsLike ? (
+                    <div>
+                      <p className="current__title">feels like</p>
+                      <p className="current__data">{weatherData.current.feelslike_c} °C</p>
+                    </div>
+                  ) : (
+                    <div>
+                      <p className="current__title">temp</p>
+                      <p className="current__data">{weatherData.current.temp_c} °C</p>
+                    </div>
+                  )}
+                </div>
+                <div className="current__displayContainer">
+                  <Condition code={weatherData.current.condition.code} text={weatherData.current.condition.text} icon={weatherData.current.condition.icon} />
+                </div>
               </div>
-            ) : (
-              <div>
-                <p className="current__title">temp</p>
-                <p className="current__data">{weatherData.current.temp_c} °C</p>
+              <div className="current__wind">
+                <div className="current__displayContainer" onMouseEnter={(e) => reveal(e.currentTarget as HTMLDivElement)} onMouseLeave={(e) => reveal(e.currentTarget as HTMLDivElement)}>
+                  {showWindSpeed ? (
+                    <div>
+                      <p className="current__title">direction</p>
+                      <p className="current__data">{weatherData.current.wind_dir}</p>
+                    </div>
+                  ) : (
+                    <div>
+                      <p className="current__title">speed</p>
+                      <p className="current__speed">{weatherData.current.wind_kph} kph</p>
+                    </div>
+                  )}
+                </div>
+                <div className="current__displayContainer">
+                  <p className="current__title">chance of rain</p>
+                  <p className="current__data">{weatherData.forecast.forecastday[0].day.daily_chance_of_rain} %</p>
+                </div>
               </div>
-            )}
-          </div>
-          <div className="current__displayContainer">
-            <Condition code={weatherData.current.condition.code} text={weatherData.current.condition.text} icon={weatherData.current.condition.icon} />
-          </div>
+            </div>
+          )}
+          <button onClick={() => change()}>Right</button>
         </div>
-        <div className="current__wind">
-          <div className="current__displayContainer" onMouseEnter={(e) => reveal(e.currentTarget as HTMLDivElement)} onMouseLeave={(e) => reveal(e.currentTarget as HTMLDivElement)}>
-            {showWindSpeed ? (
-              <div>
-                <p className="current__title">direction</p>
-                <p className="current__data">{weatherData.current.wind_dir}</p>
-              </div>
-            ) : (
-              <div>
-                <p className="current__title">speed</p>
-                <p className="current__speed">{weatherData.current.wind_kph} kph</p>
-              </div>
-            )}
-          </div>
-          <div className="current__displayContainer">
-            <p className="current__title">chance of rain</p>
-            <p className="current__data">{weatherData.forecast.forecastday[0].day.daily_chance_of_rain} %</p>
-          </div>
+        <div>
+          <Forecast forecastData={weatherData.forecast} getDayOfWeek={getDayOfWeek} />
         </div>
-        {weatherData != null ? <Forecast forecastData={weatherData.forecast} getDayOfWeek={getDayOfWeek} /> : <p> no forecast data</p>}
       </div>
     );
-  } else {
-    return <p>no weather data</p>;
   }
 };
 
