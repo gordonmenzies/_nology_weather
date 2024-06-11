@@ -151,7 +151,7 @@ const Forecast = ({ getDayOfWeek, forecastData }: ForecastProps) => {
   return (
     <div className="forecast">
       <div className="forecast__selection">
-        <ChevronLeftIcon onClick={() => increment()} />
+        <ChevronLeftIcon onClick={() => decrement()} />
         <p>{renderSwitchSelection()}</p>
         <ChevronRightIcon onClick={() => increment()} />
       </div>
