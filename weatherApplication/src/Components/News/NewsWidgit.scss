@@ -2,6 +2,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  &__search {
+    button {
+      margin-bottom: 10px;
+      margin-top: 0px;
+    }
+  }
 }
 
 .newsList {
@@ -16,8 +23,6 @@
 }
 
 .newsItem {
-  background: linear-gradient(rgba(41, 143, 226, 0.608), transparent);
-  background-color: purple; /*this your primary color*/
   border-radius: 10px;
   margin-bottom: 10px;
   display: flex;

@@ -25,7 +25,7 @@ const News = () => {
 
   return (
     <div className="newsSection">
-      <div>
+      <div className="newsSection__search">
         <input type="text" defaultValue="search" onChange={(e) => setSearchTerm(e.target.value)}></input>
         <button onClick={() => accessNews()}>search</button>
       </div>

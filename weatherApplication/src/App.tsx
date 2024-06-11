@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import WeatherWidgit from "./Components/WeatherWidgit/WeatherWidgit";
-import News from "./Components/News/NewsWidgit";
 import "./App.css";
 import LocationObject from "./types/LocationObject";
 

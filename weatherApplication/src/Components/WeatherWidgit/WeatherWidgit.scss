@@ -1,6 +1,6 @@
 .current {
   background: linear-gradient(rgba(41, 143, 226, 0.608), transparent);
-  background-color: purple; /*this your primary color*/
+  background-color: black; /*this your primary color*/
   border-radius: 20px;
   width: 340px;
   padding-top: 10px;
@@ -15,8 +15,11 @@
     width: 300px;
   }
 
+  &__changeScreen {
+    margin-top: 45%;
+  }
+
   &__displayContainer {
-    border: 5px solid grey;
     border-radius: 10px;
     height: 100px;
     width: 100px;
