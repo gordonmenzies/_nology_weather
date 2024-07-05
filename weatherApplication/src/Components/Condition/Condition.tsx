@@ -1,3 +1,5 @@
+import "./Condition.scss";
+
 type ConditionProps = {
   text: string;
   icon: string;
@@ -6,7 +8,7 @@ type ConditionProps = {
 
 const Condition = ({ icon, text }: ConditionProps) => {
   return (
-    <div>
+    <div className={"condition"}>
       <img src={icon} />
       <p>{text}</p>
     </div>

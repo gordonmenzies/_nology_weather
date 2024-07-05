@@ -1,74 +1,36 @@
 import { useEffect, useState } from "react";
 import WeatherWidgit from "./Components/WeatherWidgit/WeatherWidgit";
 import "./App.css";
-import ForecastResponse from "./types/ForecastResponse";
-
-type LocationObject = {
-  latitude: number;
-  longitude: number;
-};
+import LocationObject from "./types/LocationObject";
 
 const App = () => {
-  const [weatherData, setWeatherData] = useState<ForecastResponse>();
-
-  let displayedData: Object;
-
-  const accessLocation = (): Promise<LocationObject> => {
-    return new Promise((resolve, reject) => {
-      const success = (position: GeolocationPosition) => {
-        const newPosition: LocationObject = {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        };
-        resolve(newPosition);
-      };
-
-      const error = (error: GeolocationPositionError) => {
-        console.warn(`ERROR(${error.code}): ${error.message}`);
-        reject(error);
-      };
-
-      navigator.geolocation.getCurrentPosition(success, error);
-    });
+  const defaultLocation = {
+    latitude: 51.5072,
+    longitude: 0.1276,
   };
 
-  const accessForecast = async (locationData: LocationObject): Promise<Object> => {
-    let url = "http://api.weatherapi.com/v1/forecast.json?";
-    let apiKey = `key=${import.meta.env.VITE_API_KEY}`;
-    let q = `&q=${locationData.latitude},${locationData.longitude}`;
-    let days = "&days=5";
+  const [locationData, setLocationData] = useState<LocationObject>(defaultLocation);
 
-    const response = await fetch(url + apiKey + q + days);
-    const responseData = await response.json();
-    setWeatherData(responseData);
-    return responseData;
-  };
+  const accessLocation = () => {
+    const success = (position: GeolocationPosition) => {
+      const newPosition: LocationObject = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      };
+      setLocationData(newPosition);
+    };
 
-  const getData = async (): Promise<Object | null> => {
-    let responseDataForecast;
-    try {
-      const location = await accessLocation();
-      responseDataForecast = await accessForecast(location);
-    } catch (error) {
-      console.error("Failed to obtain location", error);
-      return null;
-    }
-    return responseDataForecast;
+    const error = (error: GeolocationPositionError) => {
+      console.warn(`ERROR(${error.code}): ${error.message}`);
+    };
+    navigator.geolocation.getCurrentPosition(success, error);
   };
 
   useEffect(() => {
-    getData();
+    accessLocation();
   }, []);
 
-  useEffect(() => {
-    if (weatherData != null) {
-      displayedData = weatherData;
-      console.log(displayedData);
-    } else {
-    }
-  }, [weatherData]);
-
-  return <>{weatherData != null ? <WeatherWidgit weatherData={weatherData} /> : <p> no weather data available</p>}</>;
+  return <div>{locationData ? <WeatherWidgit locationData={locationData} /> : <p> no weather data available</p>}</div>;
 };
 
 export default App;

@@ -1,6 +1,6 @@
 .current {
   background: linear-gradient(rgba(41, 143, 226, 0.608), transparent);
-  background-color: purple; /*this your primary color*/
+  background-color: black; /*this your primary color*/
   border-radius: 20px;
   width: 340px;
   padding-top: 10px;
@@ -8,21 +8,37 @@
   padding-right: 20px;
   padding-left: 20px;
 
+  &__weather {
+    align-content: space-around;
+
+    height: 300px;
+    width: 300px;
+  }
+
+  &__changeScreen {
+    margin-top: 45%;
+  }
+
+  &__displayContainer {
+    border-radius: 10px;
+    height: 100px;
+    width: 100px;
+    padding: 10px 10px;
+
+    p {
+      font-size: 15px;
+      margin-bottom: 0px;
+    }
+  }
+
   &__topLine {
     display: flex;
     justify-content: space-around;
   }
 
-  &__lastUpdated {
-  }
-
-  &__location {
-  }
-
-  &__isDay {
-  }
-
-  &__displayContainer {
+  &__variable {
+    display: flex;
+    justify-content: space-between;
   }
 
   &__tempConditions {
@@ -31,14 +47,9 @@
     align-items: center;
   }
 
-  &__temp {
-  }
-
-  &__condition {
-  }
-
   &__wind {
     display: flex;
     justify-content: space-around;
+    margin-top: 20px;
   }
 }

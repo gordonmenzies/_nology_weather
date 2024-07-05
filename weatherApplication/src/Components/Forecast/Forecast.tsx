@@ -3,6 +3,9 @@ import ForecastType from "../../types/ForecastType";
 import Condition from "../Condition/Condition";
 import { useState } from "react";
 
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+
 type ForecastProps = {
   forecastData: ForecastType;
   getDayOfWeek: (date: string) => string;
@@ -148,9 +151,9 @@ const Forecast = ({ getDayOfWeek, forecastData }: ForecastProps) => {
   return (
     <div className="forecast">
       <div className="forecast__selection">
-        <button onClick={() => increment()}>Left</button>
+        <ChevronLeftIcon onClick={() => decrement()} />
         <p>{renderSwitchSelection()}</p>
-        <button onClick={() => decrement()}>Right</button>
+        <ChevronRightIcon onClick={() => increment()} />
       </div>
       {renderSwitchData()}
     </div>

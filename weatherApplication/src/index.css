@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "roboto";
   line-height: 1.5;
   font-weight: 400;
 
@@ -45,6 +45,8 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  height: 20px;
+  margin-top: 45%;
 }
 button:hover {
   border-color: #646cff;
