@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import Article from "../../types/ArticleType";
 import NewsResponse from "../../types/NewsResponse";
 import "./NewsWidgit.scss";
 
 const News = () => {
   const [searchTerm, setSearchTerm] = useState<string>("bitcoin");
   const [newsData, setNewsData] = useState<NewsResponse | undefined>();
+  const [displayedArticles, setDisplayedArticles] = useState<Article[]>();
 
   const accessNews = async (): Promise<Object> => {
     let url = "https://newsapi.org/v2/everything?";
@@ -16,6 +18,18 @@ const News = () => {
     const responseData = await response.json();
     setNewsData(responseData);
     console.log("response data", responseData);
+
+    let articleSelection: Article[] = [];
+    if (responseData != undefined) {
+      for (let i = 0; i < 6; i++) {
+        if (responseData.articles[i].title == "[Removed]") {
+          articleSelection[i] = responseData?.articles[6 + i];
+        } else {
+          articleSelection[i] = responseData.articles[i];
+        }
+      }
+    }
+    setDisplayedArticles(articleSelection);
     return responseData;
   };
 
@@ -30,8 +44,8 @@ const News = () => {
         <button onClick={() => accessNews()}>search</button>
       </div>
       <div className="newsList">
-        {newsData
-          ? newsData.articles.slice(0, 4).map((article) => {
+        {displayedArticles
+          ? displayedArticles.slice(0, 4).map((article) => {
               return (
                 <a href={article.url}>
                   <div className="newsItem">
