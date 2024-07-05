@@ -29,6 +29,8 @@ const News = () => {
         }
       }
     }
+
+    newsData;
     setDisplayedArticles(articleSelection);
     return responseData;
   };
